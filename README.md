@@ -16,7 +16,7 @@ drop-in support for caching, check out
 Installation
 ============
 
-    gem install redis-session-store
+    gem install rails3-redis-session-store
 
 Configuration
 =============
@@ -34,4 +34,4 @@ Set them using:
 In your Rails app, throw in an initializer with the following contents
 and the configuration above:
 
-    ActionController::Base.session_store = RedisSessionStore
+    Rails.application.config.session_store :redis_session_store

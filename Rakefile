@@ -1,23 +1,29 @@
 require 'rubygems'
-require 'rake/gempackagetask'
-require 'rubygems/specification'
+require 'rake'
 
-spec = Gem::Specification.new do |s|
-  s.name = 'redis-session-store'
-  s.version = '0.1.7'
-  s.platform = Gem::Platform::RUBY
-  s.has_rdoc = true
-  s.extra_rdoc_files = ["LICENSE"]
-  s.summary = "A drop-in replacement for e.g. MemCacheStore to store Rails sessions (and Rails sessions only) in Redis."
-  s.description = s.summary
-  s.authors = "Mathias Meyer"
-  s.email = "meyer@paperplanes.de"
-  s.homepage = "http://github.com/mattmatt/redis-session-store"
-  s.add_dependency "redis"
-  s.require_path = 'lib'
-  s.files = %w(README.md Rakefile) + Dir.glob("{lib}/**/*")
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "rails3-redis-session-store"
+    gem.summary = %Q{Rails 3 Redis session store }
+    gem.description = %Q{A drop-in replacement for e.g. MemCacheStore to store Rails sessions (and Rails sessions only) in Redis.}
+    gem.email = "ivan@flanders.co.nz"
+    gem.homepage = "http://github.com/casualjim/redis-session-store"
+    gem.authors = ["Mathias Meyer", "Ivan Porto Carrero"]
+    gem.add_runtime_dependency  "redis"
+    gem.require_path = "lib"
+    gem.files = FileList['[A-Z]*', "{lib/**/*}"]
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.gem_spec = spec
+begin
+  require 'yard'
+  YARD::Rake::YardocTask.new
+rescue LoadError
+  task :yardoc do
+    abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"
+  end
 end
