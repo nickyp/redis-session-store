@@ -54,10 +54,8 @@ module ActionDispatch
           options = env['rack.session.options']
           expiry  = options[:expire_after] || nil
       
-          @redis.multi do |redis|
-            redis.set(prefixed(sid), Marshal.dump(session_data))
-            redis.expire(prefixed(sid), expiry) if expiry
-          end
+          @redis.set(prefixed(sid), Marshal.dump(session_data))
+          @redis.expire(prefixed(sid), expiry) if expiry
         
           return true
         rescue Errno::ECONNREFUSED
