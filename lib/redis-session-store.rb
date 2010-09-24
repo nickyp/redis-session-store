@@ -42,7 +42,7 @@ module ActionDispatch
         def get_session(env, sid)
           sid ||= generate_sid
           begin
-            data = @pool.call_command([:get, prefixed(sid)])
+            data = @pool.get prefixed(sid)
             session = data.nil? ? {} : Marshal.load(data)
           rescue Errno::ECONNREFUSED
             session = {}
