@@ -4,8 +4,8 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "rails3-redis-session-store"
-    gem.summary = %Q{Rails 3 Redis session store }
+    gem.name = "rails3-redis2-session-store"
+    gem.summary = %Q{Rails 3 Redis 2 session store }
     gem.description = %Q{A drop-in replacement for e.g. MemCacheStore to store Rails sessions (and Rails sessions only) in Redis.}
     gem.email = "ivan@flanders.co.nz"
     gem.homepage = "http://github.com/casualjim/redis-session-store"

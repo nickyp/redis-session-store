@@ -31,7 +31,7 @@ module ActionDispatch
           :key_prefix => ""
         }.update(options)
 
-        @pool = Redis.new(@default_options)
+        @redis = Redis.new(@default_options)
       end
 
       private
@@ -42,7 +42,7 @@ module ActionDispatch
         def get_session(env, sid)
           sid ||= generate_sid
           begin
-            data = @pool.get prefixed(sid)
+            data = @redis.get prefixed(sid)
             session = data.nil? ? {} : Marshal.load(data)
           rescue Errno::ECONNREFUSED
             session = {}
@@ -54,7 +54,7 @@ module ActionDispatch
           options = env['rack.session.options']
           expiry  = options[:expire_after] || nil
       
-          @pool.pipelined do |redis|
+          @redis.multi do |redis|
             redis.set(prefixed(sid), Marshal.dump(session_data))
             redis.expire(prefixed(sid), expiry) if expiry
           end
