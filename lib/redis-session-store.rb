@@ -34,6 +34,9 @@ module ActionDispatch
         @redis = Redis.new(@default_options)
       end
 
+      def destroy(env)
+        @redis.del prefixed(env['rack.request.cookie_hash'][@key])
+      end
       private
         def prefixed(sid)
           "#{@default_options[:key_prefix]}#{sid}"
