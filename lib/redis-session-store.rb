@@ -38,7 +38,7 @@ module ActionDispatch
         def prefixed(sid)
           "#{@default_options[:key_prefix]}#{sid}"
         end
-    
+
         def get_session(env, sid)
           sid ||= generate_sid
           begin
@@ -53,15 +53,15 @@ module ActionDispatch
         def set_session(env, sid, session_data)
           options = env['rack.session.options']
           expiry  = options[:expire_after] || nil
-      
+
           @redis.set(prefixed(sid), Marshal.dump(session_data))
           @redis.expire(prefixed(sid), expiry) if expiry
-        
+
           return true
         rescue Errno::ECONNREFUSED
           return false
         end
-  
+
     end
-end
+  end
 end

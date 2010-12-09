@@ -29,7 +29,7 @@ Set them using:
       :expire_after => 120.minutes,
       :key_prefix => "myapp:session:"
     }
-    
+
 
 In your Rails app, throw in an initializer with the following contents
 and the configuration above:
