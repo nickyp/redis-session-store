@@ -37,19 +37,19 @@ module ActionDispatch
       def destroy(env)
         @redis.del prefixed(env['rack.request.cookie_hash'][@key])
       end
+
       private
+
         def prefixed(sid)
           "#{@default_options[:key_prefix]}#{sid}"
         end
 
         def get_session(env, sid)
           sid ||= generate_sid
-          begin
-            data = @redis.get prefixed(sid)
-            session = data.nil? ? {} : Marshal.load(data)
-          rescue Errno::ECONNREFUSED
-            session = {}
-          end
+
+          data = @redis.get prefixed(sid)
+          session = data.nil? ? {} : Marshal.load(data)
+
           [sid, session]
         end
 
@@ -63,8 +63,6 @@ module ActionDispatch
           end
 
           return true
-        rescue Errno::ECONNREFUSED
-          return false
         end
 
     end
