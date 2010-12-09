@@ -62,7 +62,7 @@ module ActionDispatch
             @redis.expire(prefixed(sid), expiry) if expiry
           end
 
-          return true
+          sid
         end
 
     end
