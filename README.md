@@ -22,16 +22,10 @@ Configuration
 =============
 
 See lib/redis-session-store.rb for a list of valid options.
-Set them using:
-
-    ActionController::Base.session = {
-      :db => 2,
-      :expire_after => 120.minutes,
-      :key_prefix => "myapp:session:"
-    }
-
-
 In your Rails app, throw in an initializer with the following contents
 and the configuration above:
 
-    Rails.application.config.session_store :redis_session_store
+    YourApp::Application.config.session_store :redis_session_store,
+                                              :db => 0,
+                                              :expire_after => 10.minutes,
+                                              :key_prefix => "your_app:session:"
